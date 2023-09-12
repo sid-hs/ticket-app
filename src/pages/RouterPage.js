@@ -7,39 +7,46 @@ import {
     BrowserRouter as Router,
   Route, 
   Routes,
-  Redirect
+  Navigate
 } from "react-router-dom";
 import { Layout, Menu } from 'antd';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 
 import { Ingresar } from './Ingresar';
 import { Cola } from './Cola';
 import { CrearTicket } from './CrearTicket';
 import { Escritorio } from './Escritorio';
 
+import { UiContext } from '../context/UIContext';
+  const {  Sider, Content } = Layout;
+
 
 export const RouterPage = () => {
-  const {  Sider, Content } = Layout;
-  const [collapsed ] = useState(false);
+  const {ocultarMenu } = useContext(UiContext)
 
  return (
+    
       <Router>
             <Layout style={{ height: '100vh' }}>
-                <Sider trigger={null} collapsible collapsed={collapsed}>
+                <Sider 
+                // opciones para que al medir poco el ancho de pantalla, la parte izquierda 
+                //se contrae y aparece un pequeño menu 
+                collapsedWidth={0}
+                breakpoint='md'
+                hidden={ocultarMenu}
+                > 
                 <div className="logo" />
                 <Menu
                     theme="dark"
                     mode="inline"
                     defaultSelectedKeys={['1']} // <--- Numero a Key seleccionado por default
-                    items={[
-                        
+                    items={[                        
                     { 
                         key: '1',
                         icon: <UserOutlined />,
                         label: (<a href="/Ingresar" rel="noopener noreferrer">
                            Ingresar  </a>),
-                        // label: 'Ingresar'  ,
-                        
+                        // Por modificaciones en versiones se removió child y ahora no sed utiliza Link, se utiliza href dentro del texto ,                        
                     } ,
                     {
                         key: '2',
@@ -55,31 +62,7 @@ export const RouterPage = () => {
                     },
                     ]}
                 
-                >
-{/*                     
-                    <Menu.Item key="1" icon={<UserOutlined/>}>
-                        <Link to={'/Ingresar'}>
-                            Ingresar
-                        </Link>
-
-                    </Menu.Item>
-                    <Menu.Item key="2" icon={<VideoCameraOutlined/>}>
-                        <Link to={'/Cola'}>
-                            Cola
-                        </Link>
-
-                    </Menu.Item>
-                    <Menu.Item key="3" icon={<UploadOutlined/>}>
-                        <Link to={'/CrearTicket'}>
-                            Crear Ticket
-                        </Link>
-
-                    </Menu.Item> */}
-
-
-
-
-
+                >,
 
                 </Menu>
 
@@ -95,14 +78,24 @@ export const RouterPage = () => {
                     minHeight: 280,
                     }}
                 >
+                         {/* Se dejó de utilizar Switch y en su ligar Routes
 
-                    <Routes>
+                         Las rutas permite colocar las ligas al presionar 
+                         
+                         */}
+                    <Routes> 
                         <Route path='/Ingresar' Component={ Ingresar} />
                         <Route path='/Cola' Component={ Cola } />
                         <Route path='/CrearTicket' Component={ CrearTicket} />
                         <Route path='/Escritorio' Component={ Escritorio} />
-
-                        {/* <Redirect to='/Ingresar' /> */}
+                        
+                        
+                        {/* <Navigate to= "/Ingresar"/> */}
+                        {/* se redirige de manera automatica */}
+                        <Route 
+                            path="/redirect"
+                            element={ <Navigate to="/Ingresar" /> }
+                        />
 
                     </Routes>
 
