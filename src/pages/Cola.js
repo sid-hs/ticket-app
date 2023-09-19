@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, Col, Divider, List, Row, Tag, Typography } from 'antd';
 import { useHideMenu } from '../hooks/useHideMenu';
-// import Item from 'antd/es/list/Item';
+
 
 const {Text, Title} = Typography;
 
@@ -60,9 +60,26 @@ export const Cola = () => {
       <Title
       level={1}>
        Atendiendo al cliente
-       </Title>
+        
+      </Title>
+                <div >
+                  Hello World
+                </div>  
 
        <Row>
+        <Col span={24}>
+              <Divider> asdasdfgds </Divider>              
+        </Col>
+       </Row>
+
+
+       
+       
+      
+       
+       
+
+       <Row >
           <Col span={12}>
             <List 
               dataSource={data.slice(0,3)}
